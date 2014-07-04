@@ -1,0 +1,2 @@
+CREATE DATABASE crowdjournaldb CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+DROP DATABASE crowdjournaldb
