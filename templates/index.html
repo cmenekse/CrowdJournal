@@ -3,11 +3,53 @@
     {% block extraHead %}
         <title>CrowdJournal</title>
         <!--Scripts-->
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js" async></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+         <script>
+             console.log("Start Running Angular script");
+             var app=angular.module('app',[]);
+
+             app.factory('newsFactory',['$http','$q',function($http)
+             {
+                newsFactory={}
+                newsFactory.getAllNews=function()
+                {
+                    baseUrl="http://localhost:8000/api"
+                     //This returns a promise
+                     return $http.get(baseUrl+"/allNews")
+                }
+                return newsFactory;
+            }]);
+            app.controller('NewsListController',['$scope','newsFactory',function ($scope,newsFactory)
+             {
+                $scope.newsCollection = [];
+                initializeNews($scope,newsFactory);
+             }]);
+
+             function initializeNews($scope,newsFactory)
+             {
+                  newsFactory.getAllNews().then(function (response)
+                 {
+                    $scope.newsCollection=response.data;
+                    console.log("Scope data is" + $scope.newsCollection);
+                 });
+             }
+
+     </script>
+
     {% endblock %}
 
 
     {% block content %}
+        {% verbatim %}
+        <div ng-app="app">
+            <div class="container" data-ng-controller="NewsListController">
+                <ul>
+                    <li data-ng-repeat ="news in newsCollection">{{ news.title }} </li>
+                </ul>
+            </div>
+
+        </div>
+        {% endverbatim %}
 
 
 

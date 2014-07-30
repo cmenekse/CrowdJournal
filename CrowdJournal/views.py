@@ -29,10 +29,9 @@ def getUserInformation(request):
 #RETURN all of the news
 @csrf_exempt
 def getAllNews(request):
-    if request.method=='POST':
-        allNews=News.objects.all()
-        serializer=NewsSerializer(allNews,many=True)
-        return JSONResponse(serializer.data)
+    allNews=News.objects.all()
+    serializer=NewsSerializer(allNews,many=True)
+    return JSONResponse(serializer.data)
 
 #POST Parameters=NewsID:The id of the requested news
 #RETURN: The arguments with the desired opinion

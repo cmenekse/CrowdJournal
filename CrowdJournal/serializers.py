@@ -2,8 +2,6 @@ from django.forms import widgets
 from rest_framework import serializers
 from CrowdJournal.models import News,Argument,UserProfile
 
-
-
 class ArgumentSerializer(serializers.ModelSerializer):
     class Meta:
         model=Argument
@@ -21,7 +19,7 @@ class NewsSerializer(serializers.ModelSerializer):
     creator	=UserProfileSerializer(serializers.ModelSerializer)
     class Meta:
         model=News
-        fields=('id','creator')
+        fields=('id','title','creator')
 
 
 
